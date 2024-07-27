@@ -160,44 +160,64 @@ public class Login extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+     * Maneja la acción de salir de la aplicación.
+     *
+     * @param evt El evento de acción que disparó este método.
+     */
     private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
-        System.exit(0);
+        System.exit(0);// Termina la ejecución de la aplicación
     }//GEN-LAST:event_SalirActionPerformed
-
+    /**
+     * Maneja la acción de seguir en el proceso de autenticación del usuario.
+     *
+     * @param evt El evento de acción que disparó este método.
+     */
     private void SeguirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeguirActionPerformed
-        String User = Usuario.getText();
+        String User = Usuario.getText(); // Obtener el nombre de usuario del campo de texto
         Boolean Verificacion = false;
-        char[] passwordChars = Clave.getPassword();
+        char[] passwordChars = Clave.getPassword(); // Obtener la contraseña del campo de contraseña
         String Password = new String(passwordChars);
         ConsultaBD consulta = new ConsultaBD();
-        consulta.conectar();
-        Verificacion = consulta.verificarCredenciales(User, Password);
+        consulta.conectar(); // Conectar a la base de datos
+        Verificacion = consulta.verificarCredenciales(User, Password); // Verificar las credenciales
+
         if (Verificacion) {
+            // Si las credenciales son válidas, abrir la interfaz principal
             MainUI App = new MainUI();
-            App.setLocationRelativeTo(null);
-            dispose();
-            App.setVisible(true);
+            App.setLocationRelativeTo(null); // Centrar la ventana en la pantalla
+            dispose(); // Cerrar la ventana actual
+            App.setVisible(true); // Mostrar la nueva ventana
         } else {
+            // Si las credenciales no son válidas, mostrar un mensaje de error
             JOptionPane.showMessageDialog(null, "No existe el usuario", "Error", JOptionPane.ERROR_MESSAGE);
-            LimpiarText();
+            LimpiarText(); // Limpiar los campos de texto
         }
     }//GEN-LAST:event_SeguirActionPerformed
+    /**
+     * Limpia los campos de texto del nombre de usuario y la contraseña.
+     */
     private void LimpiarText() {
-        Usuario.setText("");
-        Clave.setText("");
+        Usuario.setText(""); // Limpiar el campo de texto del nombre de usuario
+        Clave.setText(""); // Limpiar el campo de contraseña
     }
+
+    /**
+     * Maneja el evento de acción para abrir la ventana de registro.
+     *
+     * @param evt El evento de acción que se ha producido.
+     */
     private void RegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrarActionPerformed
         Registro Regis = new Registro();
-        Regis.setLocationRelativeTo(null);
-        dispose();
-        Regis.setVisible(true);
+        Regis.setLocationRelativeTo(null); // Centrar la ventana en la pantalla
+        dispose(); // Cerrar la ventana actual
+        Regis.setVisible(true); // Mostrar la ventana de registro
     }//GEN-LAST:event_RegistrarActionPerformed
 
     private void UsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_UsuarioActionPerformed
-    
+
     /**
      * @param args the command line arguments
      */

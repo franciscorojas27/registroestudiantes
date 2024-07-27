@@ -32,12 +32,16 @@ import EnviromentVariables.AppConfig;
  */
 public class Reporte {
 
-    private int numeroPagina = 0;
+    private int numeroPagina = 0; // Número de la página actual
     private java.sql.Connection conn;
-    private final String URL = AppConfig.DB_URL;
-    private final String USERNAME = AppConfig.DB_USERNAME;
-    private final String PASSWORD = AppConfig.DB_PASSWORD;
 
+    /**
+     * Genera un reporte PDF con los datos obtenidos de una consulta SQL.
+     *
+     * @param sql La consulta SQL para obtener los datos.
+     * @param Titulo El título del reporte.
+     * @param Nombre El nombre del archivo PDF.
+     */
     public void generarReporte(String sql, String Titulo, String Nombre) {
         try {
             // Crear el documento PDF
@@ -50,26 +54,30 @@ public class Reporte {
                 Font headerFont = new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD);
                 Font dateFont = new Font(Font.FontFamily.HELVETICA, 10, Font.NORMAL);
 
+                @Override
                 public void onEndPage(PdfWriter writer, Document document) {
                     numeroPagina++;
                     PdfContentByte canvas = writer.getDirectContent();
                     Rectangle pageSize = document.getPageSize();
                     Font pageNumberFont = new Font(Font.FontFamily.HELVETICA, 10, Font.NORMAL);
 
+                    // Mostrar el número de página
                     ColumnText.showTextAligned(canvas, Element.ALIGN_RIGHT,
                             new Paragraph(String.format("Página %d", numeroPagina), pageNumberFont),
                             pageSize.getRight() - 36, pageSize.getTop() - 36, 0);
-
                 }
 
+                @Override
                 public void onStartPage(PdfWriter writer, Document document) {
                     PdfContentByte canvas = writer.getDirectContent();
                     Rectangle pageSize = document.getPageSize();
 
+                    // Mostrar el título en el encabezado
                     ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT,
                             new Paragraph(Titulo, headerFont),
                             pageSize.getLeft() + 36, pageSize.getTop() - 36, 0);
 
+                    // Dibujar una línea debajo del encabezado
                     canvas.rectangle(
                             document.leftMargin(),
                             pageSize.getTop() - 5 * 72,
@@ -78,6 +86,7 @@ public class Reporte {
                     );
                     canvas.stroke();
 
+                    // Mostrar la fecha actual en el pie de página
                     ColumnText.showTextAligned(canvas, Element.ALIGN_RIGHT,
                             new Paragraph(fechaActual, dateFont),
                             pageSize.getRight() - 36, pageSize.getTop() - 54, 0);
@@ -87,6 +96,7 @@ public class Reporte {
 
             document.open();
             document.add(new Paragraph("\n\n"));
+
             // Crear la tabla para mostrar los datos
             PdfPTable table = new PdfPTable(7);
             table.setWidthPercentage(100);
@@ -102,7 +112,7 @@ public class Reporte {
 
             // Obtener los datos de la base de datos y agregarlos a la tabla
             try {
-                conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+                conn = DriverManager.getConnection(AppConfig.DB_URL, AppConfig.DB_USERNAME, AppConfig.DB_PASSWORD);
                 PreparedStatement statement = conn.prepareStatement(sql);
                 ResultSet result = statement.executeQuery();
                 while (result.next()) {
@@ -114,6 +124,7 @@ public class Reporte {
                     String documento = result.getString("Documento");
                     String estado = result.getString("Estado");
 
+                    // Agregar los datos a la tabla
                     table.addCell(nombre);
                     table.addCell(apellido);
                     table.addCell(String.valueOf(edad));
@@ -149,6 +160,11 @@ public class Reporte {
         }
     }
 
+    /**
+     * Abre el archivo PDF generado en el sistema operativo.
+     *
+     * @param filePath La ruta del archivo PDF.
+     */
     private void abrirPDF(String filePath) {
         try {
             File file = new File(filePath);
@@ -157,5 +173,4 @@ public class Reporte {
             e.printStackTrace();
         }
     }
-
 }

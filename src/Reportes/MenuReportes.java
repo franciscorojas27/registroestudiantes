@@ -30,9 +30,9 @@ public class MenuReportes extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        estudiante = new javax.swing.JButton();
+        cedula = new javax.swing.JButton();
+        estado = new javax.swing.JButton();
         Salir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -43,30 +43,30 @@ public class MenuReportes extends javax.swing.JDialog {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(153, 153, 255));
-        jButton1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jButton1.setText("Reporte general de estudiantes");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        estudiante.setBackground(new java.awt.Color(153, 153, 255));
+        estudiante.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        estudiante.setText("Reporte general de estudiantes");
+        estudiante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                estudianteActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(153, 153, 255));
-        jButton2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jButton2.setText("Reporte por cedula");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        cedula.setBackground(new java.awt.Color(153, 153, 255));
+        cedula.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        cedula.setText("Reporte por cedula");
+        cedula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                cedulaActionPerformed(evt);
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(153, 153, 255));
-        jButton3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jButton3.setText("Reporte por estado");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        estado.setBackground(new java.awt.Color(153, 153, 255));
+        estado.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        estado.setText("Reporte por estado");
+        estado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                estadoActionPerformed(evt);
             }
         });
 
@@ -89,20 +89,20 @@ public class MenuReportes extends javax.swing.JDialog {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(cedula, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(estado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(estudiante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(37, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(estudiante)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(cedula)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
+                .addComponent(estado)
                 .addGap(35, 35, 35)
                 .addComponent(Salir)
                 .addContainerGap())
@@ -112,37 +112,39 @@ public class MenuReportes extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
-        dispose();
+        dispose();// Cerrar el diálogo actual
+        
     }//GEN-LAST:event_SalirActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
 
     }//GEN-LAST:event_formWindowActivated
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void estudianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estudianteActionPerformed
         reporte.generarReporte("SELECT * FROM vista_estudiantes", "Reporte de Estudiantes General", "ReporteGeneral.pdf");
-        dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+        dispose();// Cerrar el diálogo actual
+        
+    }//GEN-LAST:event_estudianteActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void estadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estadoActionPerformed
         MenuReportesEstados Dialog = new MenuReportesEstados(this, true); 
         Dialog.setLocationRelativeTo(this);
         Dialog.setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_estadoActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void cedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cedulaActionPerformed
         MenuReportesCedula Dialog = new MenuReportesCedula(this, true);
         Dialog.setLocationRelativeTo(this);
         Dialog.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_cedulaActionPerformed
 
     /**
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Salir;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton cedula;
+    private javax.swing.JButton estado;
+    private javax.swing.JButton estudiante;
     // End of variables declaration//GEN-END:variables
 }

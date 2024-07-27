@@ -140,37 +140,37 @@ public class MenuReportesEstados extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
-        dispose();
+        dispose();// Cerrar el diálogo actual
     }//GEN-LAST:event_SalirActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         reporte.generarReporte("SELECT * FROM vista_estudiantes WHERE Estado = 'Distrito Capital'", "Reporte del Distrito Capital", nombreArchivo);
         parentDialog.dispose(); // Cerrar el primer diálogo
-        this.dispose();
+        this.dispose();// Cerrar el diálogo actual
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         reporte.generarReporte("SELECT * FROM vista_estudiantes WHERE Estado = 'Miranda'", "Reporte de Miranda", nombreArchivo);
         parentDialog.dispose(); // Cerrar el primer diálogo
-        this.dispose();
+        this.dispose();// Cerrar el diálogo actual
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         reporte.generarReporte("SELECT * FROM vista_estudiantes WHERE Estado = 'Zulia'", "Reporte de Zulia", nombreArchivo);
         parentDialog.dispose(); // Cerrar el primer diálogo
-        this.dispose();
+        this.dispose();// Cerrar el diálogo actual
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         reporte.generarReporte("SELECT * FROM vista_estudiantes WHERE Estado = 'Merida'", "Reporte de Merida", nombreArchivo);
         parentDialog.dispose(); // Cerrar el primer diálogo
-        this.dispose();
+        this.dispose();// Cerrar el diálogo actual
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         reporte.generarReporte("SELECT * FROM vista_estudiantes WHERE Estado = 'Carabobo'", "Reporte de Carabobo", nombreArchivo);
         parentDialog.dispose(); // Cerrar el primer diálogo
-        this.dispose();
+        this.dispose();// Cerrar el diálogo actual
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**

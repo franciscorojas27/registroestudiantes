@@ -161,31 +161,42 @@ public class Registro extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+     * Maneja el evento de acción para cerrar la ventana actual.
+     *
+     * @param evt El evento de acción que se ha producido.
+     */
     private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
-        dispose();
+        dispose();// Cierra la ventana actual
     }//GEN-LAST:event_SalirActionPerformed
 
     private void EntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EntradaActionPerformed
-        Cerrar();
+        Cerrar();// Llama al método para cerrar la aplicación
     }//GEN-LAST:event_EntradaActionPerformed
-
+    /**
+     * Maneja el evento de acción para registrar un nuevo usuario.
+     *
+     * @param evt El evento de acción que se ha producido.
+     */
     private void RegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrarActionPerformed
-        String User = Usuario.getText();
-        char[] passwordChars = Clave.getPassword();
+        String User = Usuario.getText(); // Obtener el nombre de usuario del campo de texto
+        char[] passwordChars = Clave.getPassword(); // Obtener la contraseña del campo de contraseña
         String Password = new String(passwordChars);
         ConsultaBD consulta = new ConsultaBD();
-        consulta.conectar();
+        consulta.conectar(); // Conectar a la base de datos
+
+        // Verificar si el usuario ya existe
         if (consulta.verificarCredenciales(User, Password)) {
-            JOptionPane.showMessageDialog(null, "El ya existe un usuario con ese nombre", "Error", JOptionPane.ERROR_MESSAGE);
-            LimpiarText();
+            JOptionPane.showMessageDialog(null, "Ya existe un usuario con ese nombre", "Error", JOptionPane.ERROR_MESSAGE);
+            LimpiarText(); // Limpiar los campos de texto
         } else {
+            // Intentar agregar el nuevo usuario
             if (consulta.agregarUsuario(User, Password)) {
                 JOptionPane.showMessageDialog(null, "El usuario se agregó correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                Cerrar();
+                Cerrar(); // Cerrar la ventana actual y abrir la de inicio de sesión
             } else {
                 JOptionPane.showMessageDialog(null, "No se pudo agregar el usuario", "Error", JOptionPane.ERROR_MESSAGE);
-                LimpiarText();
+                LimpiarText(); // Limpiar los campos de texto
             }
         }
     }//GEN-LAST:event_RegistrarActionPerformed
@@ -193,15 +204,22 @@ public class Registro extends javax.swing.JFrame {
     private void UsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_UsuarioActionPerformed
+    /**
+     * Cierra la ventana actual y abre la ventana de inicio de sesión.
+     */
     private void Cerrar() {
         Login log = new Login();
-        log.setLocationRelativeTo(null);
-        dispose();
-        log.setVisible(true);
+        log.setLocationRelativeTo(null); // Centrar la ventana en la pantalla
+        dispose(); // Cerrar la ventana actual
+        log.setVisible(true); // Mostrar la ventana de inicio de sesión
     }
+
+    /**
+     * Limpia los campos de texto del nombre de usuario y la contraseña.
+     */
     private void LimpiarText() {
-        Usuario.setText("");
-        Clave.setText("");
+        Usuario.setText(""); // Limpiar el campo de texto del nombre de usuario
+        Clave.setText(""); // Limpiar el campo de contraseña
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPasswordField Clave;

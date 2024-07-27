@@ -115,7 +115,7 @@ public class MenuReportesCedula extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
-        dispose();
+        dispose();// Cerrar el diálogo actual
     }//GEN-LAST:event_SalirActionPerformed
 
     private void CedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CedulaActionPerformed
@@ -143,8 +143,8 @@ public class MenuReportesCedula extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "La cédula debe tener exactamente 8 dígitos", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             reporte.generarReporte("SELECT * FROM vista_estudiantes WHERE Cedula = '" + cedula + "'", "Reporte de Carabobo", nombreArchivo);
-            parentDialog.dispose(); 
-            this.dispose();
+            parentDialog.dispose(); // Cerrar el primer diálogo
+            this.dispose();// Cerrar el diálogo actual
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

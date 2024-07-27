@@ -382,9 +382,16 @@ public class MainUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+     * Maneja el evento de acción para agregar un nuevo estudiante.
+     *
+     * @param evt El evento de acción que se ha producido.
+     */
     private void AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarActionPerformed
+        // Conectar a la base de datos
         consulta.conectar();
+
+        // Obtener los valores de los campos de entrada
         String nombre = Nombre.getText();
         String apellido = Apellido.getText();
         String edad = Edad.getText();
@@ -393,16 +400,24 @@ public class MainUI extends javax.swing.JFrame {
         int estadoCivil = EstadoCivil.getSelectedIndex() + 1;
         int estado = Estado.getSelectedIndex() + 1;
 
+        // Validar los campos de entrada
         if (nombre.isEmpty() || apellido.isEmpty() || edad.isEmpty() || cedula.isEmpty()) {
+            // Mostrar mensaje de error si algún campo está vacío
             JOptionPane.showMessageDialog(null, "Rellene los campos vacíos", "Error", JOptionPane.ERROR_MESSAGE);
         } else if (cedula.length() != 8) {
+            // Mostrar mensaje de error si la cédula no tiene exactamente 8 dígitos
             JOptionPane.showMessageDialog(null, "La cédula debe tener exactamente 8 dígitos", "Error", JOptionPane.ERROR_MESSAGE);
         } else if (consulta.verificarExistenciaPorCedula(cedula)) {
+            // Mostrar mensaje de error si el estudiante ya existe
             JOptionPane.showMessageDialog(null, "El estudiante ya existe", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
+            // Confirmar la acción de agregar el estudiante
             int resultado = JOptionPane.showConfirmDialog(null, "¿Deseas agregar al estudiante?", "Confirmación", JOptionPane.YES_NO_OPTION);
             if (resultado == JOptionPane.YES_OPTION) {
+                // Limpiar los campos de texto
                 Limpiar();
+
+                // Intentar agregar el estudiante y mostrar el resultado
                 if (consulta.agregarEstudiante(nombre, apellido, edad, cedula, Integer.toString(estadoCivil), Integer.toString(documento), Integer.toString(estado))) {
                     JOptionPane.showMessageDialog(null, "El estudiante se agregó correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                 } else {
@@ -410,6 +425,8 @@ public class MainUI extends javax.swing.JFrame {
                 }
             }
         }
+
+        // Limpiar los campos de texto después de la operación
         Limpiar();
     }//GEN-LAST:event_AgregarActionPerformed
 
@@ -428,9 +445,17 @@ public class MainUI extends javax.swing.JFrame {
     private void NombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_NombreActionPerformed
-
+    /**
+     * Maneja el evento de clic en la tabla para seleccionar una fila y mostrar
+     * sus datos en los campos de entrada.
+     *
+     * @param evt El evento de clic del ratón que se ha producido.
+     */
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+        // Obtener la fila que fue clickeada
         int row = jTable2.rowAtPoint(evt.getPoint());
+
+        // Obtener los valores de las celdas en la fila seleccionada
         String nombre = jTable2.getValueAt(row, 0).toString();
         String apellido = jTable2.getValueAt(row, 1).toString();
         String edad = jTable2.getValueAt(row, 2).toString();
@@ -438,10 +463,14 @@ public class MainUI extends javax.swing.JFrame {
         String estadoCivil = jTable2.getValueAt(row, 4).toString();
         String documento = jTable2.getValueAt(row, 5).toString();
         String estado = jTable2.getValueAt(row, 6).toString();
+
+        // Rellenar los campos de texto con los valores obtenidos
         Nombre.setText(nombre);
         Apellido.setText(apellido);
         Edad.setText(edad);
         Cedula.setText(cedula);
+
+        // Seleccionar el valor correspondiente en los JComboBox
         seleccionarItem(EstadoCivil, estadoCivil);
         seleccionarItem(Documento, documento);
         seleccionarItem(Estado, estado);
@@ -455,9 +484,17 @@ public class MainUI extends javax.swing.JFrame {
     private void EstadoCivilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstadoCivilActionPerformed
 
     }//GEN-LAST:event_EstadoCivilActionPerformed
-
+    /**
+     * Muestra un cuadro de diálogo de confirmación para limpiar los datos de
+     * los campos de texto.
+     *
+     * @param evt El evento que desencadenó la acción.
+     */
     private void NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoActionPerformed
-        int resultado = JOptionPane.showConfirmDialog(null, "¿Deseas Limpiar los datos?", "Confirmación", JOptionPane.YES_NO_OPTION);
+        // Mostrar un cuadro de diálogo de confirmación
+        int resultado = JOptionPane.showConfirmDialog(null, "¿Deseas limpiar los datos?", "Confirmación", JOptionPane.YES_NO_OPTION);
+
+        // Si el usuario selecciona "Sí", limpiar los campos de texto
         if (resultado == JOptionPane.YES_OPTION) {
             Nombre.setText("");
             Apellido.setText("");
@@ -467,22 +504,35 @@ public class MainUI extends javax.swing.JFrame {
     }//GEN-LAST:event_NuevoActionPerformed
 
     private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
-        System.exit(0);
+        System.exit(0); // Cierra el programa.
     }//GEN-LAST:event_SalirActionPerformed
-
+    /**
+     * Maneja la eliminación de un estudiante basado en el texto ingresado en el
+     * campo de cédula.
+     *
+     * @param evt El evento que desencadenó la acción.
+     */
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
+        // Obtener el texto del campo de cédula
         String cedula = Cedula.getText();
+
+        // Conectar a la base de datos
         consulta.conectar();
+
+        // Verificar si la cédula tiene exactamente 8 dígitos
         if (cedula.length() != 8) {
             JOptionPane.showMessageDialog(null, "La cédula debe tener exactamente 8 dígitos", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
+            // Mostrar un cuadro de diálogo de confirmación para eliminar al estudiante
             int resultado = JOptionPane.showConfirmDialog(null, "¿Deseas eliminar al estudiante?", "Confirmación", JOptionPane.YES_NO_OPTION);
+
+            // Si el usuario selecciona "Sí", proceder con la eliminación
             if (resultado == JOptionPane.YES_OPTION) {
-                Limpiar();
+                Limpiar(); // Limpiar los campos de texto
                 if (consulta.eliminarUsuario(cedula)) {
-                    JOptionPane.showMessageDialog(null, "El estudiante se elimino correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "El estudiante se eliminó correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(null, "El Estudiante no existe", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "El estudiante no existe", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
@@ -491,46 +541,76 @@ public class MainUI extends javax.swing.JFrame {
     private void CedulaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CedulaKeyPressed
 
     }//GEN-LAST:event_CedulaKeyPressed
-
+    /**
+     * Maneja la entrada de caracteres en un campo de texto para permitir solo
+     * números y teclas de retroceso, y limita la longitud del texto a 8
+     * caracteres.
+     *
+     * @param evt El evento de teclado que desencadenó la acción.
+     */
     private void CedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CedulaKeyTyped
         char c = evt.getKeyChar();
 
         // Verifica si el carácter es un número (0-9) o una tecla de retroceso (backspace)
         if (!(Character.isDigit(c) || c == java.awt.event.KeyEvent.VK_BACK_SPACE)) {
-            // Consume el evento para que no sea procesado si no es un número ni una tecla de retroceso
+            // Consume el evento para evitar que se procese el carácter si no es un número ni una tecla de retroceso
             evt.consume();
         }
+
+        // Obtener el campo de texto que generó el evento
         JTextField textField = (JTextField) evt.getSource();
+
+        // Limitar la longitud del texto a 8 caracteres
         if (textField.getText().length() >= 8) {
             evt.consume();
         }
     }//GEN-LAST:event_CedulaKeyTyped
-
+    /**
+     * Maneja la entrada de caracteres en un campo de texto para permitir solo
+     * números y teclas de retroceso, y limita la longitud del texto a 2
+     * caracteres.
+     *
+     * @param evt El evento de teclado que desencadenó la acción.
+     */
     private void EdadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_EdadKeyTyped
         char c = evt.getKeyChar();
 
         // Verifica si el carácter es un número (0-9) o una tecla de retroceso (backspace)
         if (!(Character.isDigit(c) || c == java.awt.event.KeyEvent.VK_BACK_SPACE)) {
-            // Consume el evento para que no sea procesado si no es un número ni una tecla de retroceso
+            // Consume el evento para evitar que se procese el carácter si no es un número ni una tecla de retroceso
             evt.consume();
         }
+
+        // Obtener el campo de texto que generó el evento
         JTextField textField = (JTextField) evt.getSource();
+
+        // Limitar la longitud del texto a 2 caracteres
         if (textField.getText().length() >= 2) {
             evt.consume();
         }
     }//GEN-LAST:event_EdadKeyTyped
-
+    /**
+     * Maneja la acción para modificar los datos de un estudiante. Primero
+     * valida la entrada del usuario y verifica la existencia del estudiante en
+     * la base de datos. Luego, confirma la intención del usuario de modificar
+     * los datos y realiza la actualización en la base de datos si es necesario.
+     */
     private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
+        // Conectar a la base de datos
         consulta.conectar();
 
+        // Obtener el valor de la cédula del campo de texto
         String cedula = Cedula.getText();
 
+        // Validar la cédula ingresada
         if (cedula.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Ingrese la cédula del estudiante", "Error", JOptionPane.ERROR_MESSAGE);
         } else if (cedula.length() != 8) {
             JOptionPane.showMessageDialog(null, "La cédula debe tener exactamente 8 dígitos", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
+            // Verificar si el estudiante existe en la base de datos
             if (consulta.verificarExistenciaPorCedula(cedula)) {
+                // Obtener los valores de los otros campos
                 String nombre = Nombre.getText();
                 String apellido = Apellido.getText();
                 String edad = Edad.getText();
@@ -538,8 +618,10 @@ public class MainUI extends javax.swing.JFrame {
                 int estadoCivil = EstadoCivil.getSelectedIndex() + 1;
                 int estado = Estado.getSelectedIndex() + 1;
 
+                // Confirmar la intención del usuario para modificar los datos
                 int resultado = JOptionPane.showConfirmDialog(null, "¿Deseas modificar los datos del estudiante?", "Confirmación", JOptionPane.YES_NO_OPTION);
                 if (resultado == JOptionPane.YES_OPTION) {
+                    // Modificar los datos del estudiante en la base de datos
                     if (consulta.modificarDatosEstudiante(nombre, apellido, edad, cedula, Integer.toString(estadoCivil), Integer.toString(documento), Integer.toString(estado))) {
                         JOptionPane.showMessageDialog(null, "Los datos del estudiante se modificaron correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                     } else {
@@ -551,21 +633,35 @@ public class MainUI extends javax.swing.JFrame {
             }
         }
 
+        // Limpiar los campos de entrada
         Limpiar();
     }//GEN-LAST:event_ModificarActionPerformed
 
     private void buscarCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarCedulaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_buscarCedulaActionPerformed
-
+    /**
+     * Maneja la acción para buscar un estudiante por su cédula. Verifica la
+     * longitud de la cédula, realiza la búsqueda en la base de datos, y
+     * actualiza los campos con los datos del estudiante si se encuentra.
+     */
     private void BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarActionPerformed
+        // Obtener el valor de la cédula del campo de búsqueda
         String cedula = buscarCedula.getText();
+
+        // Validar la longitud de la cédula
         if (cedula.length() != 8) {
             JOptionPane.showMessageDialog(null, "La cédula debe tener exactamente 8 dígitos", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
+            // Conectar a la base de datos
             consulta.conectar();
+
+            // Buscar los datos del estudiante por cédula
             String[] valoresEstudianteEncontrado = consulta.buscarEstudiantePorCedula(cedula);
+
+            // Verificar si se encontraron datos del estudiante
             if (valoresEstudianteEncontrado != null) {
+                // Actualizar los campos con los datos del estudiante
                 Nombre.setText(valoresEstudianteEncontrado[1]);
                 Apellido.setText(valoresEstudianteEncontrado[2]);
                 Edad.setText(valoresEstudianteEncontrado[3]);
@@ -574,11 +670,16 @@ public class MainUI extends javax.swing.JFrame {
                 EstadoCivil.setSelectedIndex(Integer.parseInt(valoresEstudianteEncontrado[4]) - 1);
                 Estado.setSelectedIndex(Integer.parseInt(valoresEstudianteEncontrado[6]) - 1);
             } else {
+                // Mostrar mensaje si no se encontró ningún estudiante
                 JOptionPane.showMessageDialog(null, "No se encontró ningún estudiante con la cédula especificada.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_BuscarActionPerformed
-
+    /**
+     * Maneja el evento de tipeo de teclas en el campo de texto para la cédula.
+     *
+     * @param evt El evento de tipo KeyEvent que se ha producido.
+     */
     private void buscarCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscarCedulaKeyTyped
         char c = evt.getKeyChar();
 
@@ -587,36 +688,55 @@ public class MainUI extends javax.swing.JFrame {
             // Consume el evento para que no sea procesado si no es un número ni una tecla de retroceso
             evt.consume();
         }
+
+        // Obtiene el campo de texto que generó el evento
         JTextField textField = (JTextField) evt.getSource();
+
+        // Verifica si el texto del campo alcanza el límite de longitud (8 caracteres)
         if (textField.getText().length() >= 8) {
-            evt.consume();
+            evt.consume(); // Consume el evento para evitar que se ingresen más caracteres
         }
     }//GEN-LAST:event_buscarCedulaKeyTyped
-
+    /**
+     * Maneja el evento de acción para generar un reporte.
+     *
+     * @param evt El evento de acción que se ha producido.
+     */
     private void generarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generarReporteActionPerformed
-        MenuReportes dialog = new MenuReportes(this, true); // true 
-        dialog.setLocationRelativeTo(this);
-        dialog.setVisible(true);
+        MenuReportes dialog = new MenuReportes(this, true); // Crear un diálogo modal de reportes
+        dialog.setLocationRelativeTo(this); // Centrar el diálogo respecto a la ventana principal
+        dialog.setVisible(true); // Mostrar el diálogo
     }//GEN-LAST:event_generarReporteActionPerformed
-    
+
+    /**
+     * Selecciona un ítem en un JComboBox basado en el valor deseado.
+     *
+     * @param <T> El tipo de elementos en el JComboBox.
+     * @param comboBox El JComboBox en el que se va a seleccionar el ítem.
+     * @param valorDeseado El valor del ítem que se desea seleccionar.
+     */
     public static <T> void seleccionarItem(JComboBox<T> comboBox, T valorDeseado) {
         for (int i = 0; i < comboBox.getItemCount(); i++) {
             T item = comboBox.getItemAt(i);
 
             // Comparar el valor del elemento con el valor deseado
             if (item.equals(valorDeseado)) {
-                comboBox.setSelectedIndex(i);
-                break;
+                comboBox.setSelectedIndex(i); // Seleccionar el ítem
+                break; // Salir del bucle después de encontrar el ítem
             }
         }
     }
 
+    /**
+     * Limpia los campos de texto en el formulario.
+     */
     public void Limpiar() {
-        Nombre.setText("");
-        Apellido.setText("");
-        Edad.setText("");
-        Cedula.setText("");
+        Nombre.setText("");  // Limpiar el campo de texto del nombre
+        Apellido.setText(""); // Limpiar el campo de texto del apellido
+        Edad.setText("");     // Limpiar el campo de texto de la edad
+        Cedula.setText("");   // Limpiar el campo de texto de la cédula
     }
+
     /**
      * @param args the command line arguments
      */
