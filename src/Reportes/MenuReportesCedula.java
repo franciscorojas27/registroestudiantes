@@ -142,7 +142,7 @@ public class MenuReportesCedula extends javax.swing.JDialog {
         if (cedula.length() != 8) {
             JOptionPane.showMessageDialog(null, "La cédula debe tener exactamente 8 dígitos", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            reporte.generarReporte("SELECT * FROM vista_estudiantes WHERE Cedula = '" + cedula + "'", "Reporte de Carabobo", nombreArchivo);
+            reporte.generarReporte("SELECT * FROM vista_estudiantes WHERE Cedula = '" + cedula + "'", "Reporte por cedula", nombreArchivo);
             parentDialog.dispose(); // Cerrar el primer diálogo
             this.dispose();// Cerrar el diálogo actual
         }

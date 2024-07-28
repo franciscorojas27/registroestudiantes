@@ -10,7 +10,7 @@ package EnviromentVariables;
  */
 public class AppConfig {
 
-    public static final String DB_URL = "jdbc:mysql://localhost:3306/RegistroEstudiante";
+    public static final String DB_URL = "";
     public static final String DB_USERNAME = "";
     public static final String DB_PASSWORD = "";
 
