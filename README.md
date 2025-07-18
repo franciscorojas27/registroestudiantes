@@ -64,3 +64,6 @@ Esta aplicación fue desarrollada como parte de una actividad académica univers
 - **MySQL** para la persistencia de datos  
 
 Sirve como ejemplo para comprender y aplicar los principios fundamentales de la interacción entre una aplicación con GUI y una base de datos relacional.
+__
+
+Video de youtube explicando el codigo y la app: https://www.youtube.com/watch?v=GBW6m-K4azY
